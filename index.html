@@ -1,0 +1,405 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#5b21b6">
+<title>RODAO | Domicilios en El Doncello</title>
+<style>
+:root{--purple:#5b21b6;--purple-dark:#4c1d95;--lime:#a3ff12;--navy:#0f172a;--bg:#f8fafc;--card-bg:#ffffff;--muted:#64748b;--line:#e2e8f0}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--navy);font-family:Inter,system-ui,-apple-system,sans-serif}
+button,input,select,textarea{font:inherit}button{cursor:pointer}.wrap{max-width:1100px;margin:auto;padding:0 16px}
+header{background:var(--purple);color:white;padding:16px 0 22px;border-bottom:4px solid var(--lime);position:sticky;top:0;z-index:5}
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:900;font-size:26px;letter-spacing:-1px}
+.mark{width:42px;height:42px;border-radius:12px;background:var(--lime);color:var(--purple);display:grid;place-items:center;font-weight:900;font-size:26px;transform:rotate(-4deg);box-shadow:0 4px 12px rgba(0,0,0,0.15)}
+.location-badge{background:rgba(255,255,255,0.12);padding:6px 12px;border-radius:20px;font-size:12px;display:flex;align-items:center;gap:6px;font-weight:600}
+.actions-top{display:flex;gap:8px;align-items:center}
+.btn-partner{border:1px solid rgba(255,255,255,0.3);border-radius:999px;background:transparent;color:white;font-weight:700;font-size:12px;padding:9px 14px;transition:background 0.2s}
+.btn-partner:hover{background:rgba(255,255,255,0.1)}
+.cartbtn{border:0;border-radius:999px;background:var(--lime);color:var(--navy);font-weight:800;padding:10px 16px;display:flex;align-items:center;gap:6px;box-shadow:0 4px 12px rgba(163,255,18,0.3)}
+
+.hero{padding:20px 0 10px;display:grid;grid-template-columns:1.4fr 1fr;gap:20px;align-items:center}
+.eyebrow{color:var(--lime);font-weight:800;text-transform:uppercase;font-size:11px;letter-spacing:1.2px}
+.hero h1{font-size:clamp(28px,4vw,46px);line-height:1.05;margin:6px 0 10px;letter-spacing:-1.5px}
+.hero p{color:#ede9fe;font-size:14px;margin:0 0 16px;max-width:480px}
+.search-box{position:relative;width:100%;max-width:500px}
+.search{width:100%;border:0;border-radius:14px;padding:14px 16px 14px 42px;outline:none;background:white;color:var(--navy);font-weight:500;box-shadow:0 4px 15px rgba(0,0,0,0.1)}
+.search-icon{position:absolute;left:14px;top:50%;transform:translateY(-50%);font-size:18px}
+.hero-card{background:var(--purple-dark);border:1px solid rgba(255,255,255,0.15);border-radius:20px;padding:20px;text-align:center;box-shadow:0 10px 25px rgba(0,0,0,0.2)}
+.mascot{font-size:54px;line-height:1}.hero-card strong{display:block;font-size:18px;margin-top:6px}.hero-card small{color:#cbd5e1;font-size:12px}
+
+main{padding:20px 0 40px}
+.banner{background:#ecfccb;border:1px solid #bef264;color:#365314;padding:12px 16px;border-radius:12px;font-size:13px;margin-bottom:20px;display:flex;align-items:center;gap:10px}
+.sectionhead{display:flex;align-items:flex-end;justify-content:space-between;margin:18px 0 12px}
+.sectionhead h2{margin:0;font-size:20px;letter-spacing:-0.5px}
+.sectionhead span{font-size:12px;color:var(--muted);font-weight:600}
+
+.categories{display:flex;gap:8px;overflow-x:auto;padding-bottom:8px;scrollbar-width:none}
+.categories::-webkit-scrollbar{display:none}
+.cat{white-space:nowrap;border:1px solid var(--line);background:white;border-radius:999px;padding:10px 16px;font-weight:700;font-size:13px;color:#475569;display:flex;align-items:center;gap:6px;box-shadow:0 2px 6px rgba(0,0,0,0.02);transition:all 0.2s}
+.cat.active{background:var(--purple);color:white;border-color:var(--purple);box-shadow:0 4px 12px rgba(91,33,182,0.3)}
+
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.card{background:var(--card-bg);border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:0 4px 12px rgba(15,23,42,0.04);display:flex;flex-direction:column;transition:transform 0.2s}
+.card:hover{transform:translateY(-2px)}
+.foodpic{height:130px;display:grid;place-items:center;font-size:48px;background:linear-gradient(135deg,#f3e8ff,#ecfccb)}
+.cardbody{padding:14px;display:flex;flex-direction:column;gap:6px;flex:1}
+.card h3{margin:0;font-size:16px}
+.desc{font-size:12px;color:var(--muted);min-height:32px;line-height:1.4}
+.pricebar{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:auto;padding-top:6px}
+.price{font-weight:900;font-size:15px;color:var(--purple)}
+.add{border:0;border-radius:10px;background:var(--purple);color:white;font-weight:800;font-size:12px;padding:8px 12px}
+.add:hover{background:var(--purple-dark)}
+
+.mandadito-card{background:linear-gradient(135deg, #4c1d95, #5b21b6);color:white;border-radius:16px;padding:20px;margin-top:30px;display:flex;align-items:center;justify-content:space-between;gap:20px;box-shadow:0 8px 20px rgba(91,33,182,0.25)}
+.mandadito-card h3{margin:0 0 6px 0;font-size:20px;color:var(--lime)}
+.mandadito-card p{margin:0;font-size:13px;color:#ede9fe}
+.btn-mandadito{background:var(--lime);color:var(--navy);font-weight:900;border:0;padding:12px 20px;border-radius:12px;white-space:nowrap}
+
+.modal{position:fixed;inset:0;background:rgba(15,23,42,0.6);backdrop-filter:blur(2px);display:none;align-items:center;justify-content:center;z-index:100;padding:16px}
+.modal.open{display:flex}
+.modal-content{background:white;width:min(500px,100%);max-height:90vh;overflow-y:auto;border-radius:20px;padding:24px;box-shadow:0 15px 35px rgba(0,0,0,0.2)}
+.modal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;border-bottom:1px solid var(--line);padding-bottom:10px}
+.modal-header h2{margin:0;font-size:18px}
+
+footer{background:var(--navy);color:white;padding:24px 0;font-size:13px;margin-top:30px}
+.foot{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.foot span{color:#94a3b8}
+
+.drawer{position:fixed;inset:0;background:rgba(15,23,42,0.6);backdrop-filter:blur(2px);display:none;justify-content:flex-end;z-index:100}
+.drawer.open{display:flex}
+.panel{background:white;width:min(420px,100%);height:100%;overflow-y:auto;padding:20px;display:flex;flex-direction:column}
+.panelhead{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--line);padding-bottom:12px}
+.panelhead h2{margin:0;font-size:18px}
+.close{border:0;background:#f1f5f9;border-radius:8px;padding:6px 12px;font-weight:700}
+.cartitems{margin:12px 0;flex:1;overflow-y:auto}
+.cartrow{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--line)}
+.cartrow .itemname{flex:1;font-size:13px}
+.qty{display:flex;align-items:center;gap:6px}
+.qty button{border:1px solid var(--line);background:white;border-radius:6px;width:24px;height:24px;font-weight:bold}
+.empty{color:var(--muted);text-align:center;padding:40px 0;font-size:14px}
+.total-box{background:#f8fafc;padding:12px;border-radius:12px;border:1px solid var(--line);margin:10px 0}
+.total-row{display:flex;justify-content:space-between;font-size:14px;margin-bottom:4px}
+.total-row.grand{font-size:17px;font-weight:900;color:var(--purple);margin-top:8px;border-top:1px dashed var(--line);padding-top:8px}
+.formlabel{display:block;font-size:12px;font-weight:800;margin:10px 0 4px;color:#334155}
+.field{width:100%;border:1px solid #cbd5e1;border-radius:10px;padding:10px;background:white;font-size:13px}
+.submit{width:100%;border:0;background:var(--lime);color:var(--navy);font-weight:900;padding:14px;border-radius:12px;margin-top:14px;font-size:14px;box-shadow:0 4px 15px rgba(163,255,18,0.4)}
+.hint{font-size:11px;color:var(--muted);line-height:1.4;margin-top:10px;text-align:center}
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--navy);color:white;padding:10px 18px;border-radius:10px;display:none;z-index:200;font-size:13px;box-shadow:0 5px 15px rgba(0,0,0,0.3)}
+
+@media(max-width:768px){.hero{grid-template-columns:1fr}.hero-card{display:none}.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.mandadito-card{flex-direction:column;text-align:center}}
+@media(max-width:400px){.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<header>
+ <div class="wrap">
+  <div class="top">
+   <div class="brand">
+    <div class="mark">R</div>RODAO
+   </div>
+   <div class="location-badge">📍 El Doncello, Caquetá</div>
+   <div class="actions-top">
+    <button class="btn-partner" onclick="openPartnerModal()">🤝 Afilia tu comercio</button>
+    <button class="cartbtn" onclick="openCart()">🛒 (<span id="cartcount">0</span>)</button>
+   </div>
+  </div>
+  
+  <section class="hero">
+   <div>
+    <div class="eyebrow">Tu plataforma de delivery local</div>
+    <h1>Pide lo que quieras,<br>te lo llevo a la puerta.</h1>
+    <p>Panaderías, restaurantes, estética, droguerías y veterinarias en El Doncello.</p>
+    <div class="search-box">
+     <span class="search-icon">🔍</span>
+     <input id="search" class="search" placeholder="Busca productos, platos o servicios..." oninput="renderProducts()">
+    </div>
+   </div>
+   <div class="hero-card">
+    <div class="mascot">🛵</div>
+    <strong>¡En ruta por ti!</strong>
+    <small>Domicilios rápidos y seguros</small>
+   </div>
+  </section>
+ </div>
+</header>
+
+<main class="wrap">
+ <div class="banner">
+  <span>🟢</span> <div><b>¡RODAO Activo!</b> Selecciona tu categoría favorita o haz un mandadito personalizado directo a mi WhatsApp (<b>3214196269</b>).</div>
+ </div>
+
+ <div class="sectionhead">
+  <h2>Categorías</h2>
+  <span id="productcount"></span>
+ </div>
+ <div class="categories" id="categories"></div>
+
+ <div class="sectionhead" style="margin-top:24px">
+  <h2>Catálogo de Productos y Servicios</h2>
+ </div>
+ <div class="grid" id="products"></div>
+
+ <div class="mandadito-card">
+  <div>
+   <h3>🛵 ¿Necesitas un Mandadito Personalizado?</h3>
+   <p>Te hacemos la vuelta que necesites: recoger documentos, compra específica en un lugar determinado, pago de recibidos o encargos especiales en El Doncello.</p>
+  </div>
+  <button class="btn-mandadito" onclick="addMandaditoToCart()">Pedir Mandadito ($4.000)</button>
+ </div>
+</main>
+
+<div class="modal" id="partnerModal" onclick="if(event.target===this)closePartnerModal()">
+ <div class="modal-content">
+  <div class="modal-header">
+   <h2>🤝 Afilia tu Comercio a RODAO</h2>
+   <button class="close" onclick="closePartnerModal()">✕</button>
+  </div>
+  <p style="font-size:13px;color:var(--muted);margin-top:0;">¿Tienes un negocio en El Doncello y quieres aparecer en la plataforma? Envía tus datos y menú para empezar a vender.</p>
+  <form onsubmit="submitPartnerForm(event)">
+   <label class="formlabel">Nombre del establecimiento o negocio</label>
+   <input class="field" id="pName" required placeholder="Ej: Panadería El Buen Susto">
+
+   <label class="formlabel">Categoría de tu negocio</label>
+   <select class="field" id="pCat">
+    <option value="Panaderías">Panaderías</option>
+    <option value="Restaurantes">Restaurantes</option>
+    <option value="Estética/Belleza">Estética / Belleza</option>
+    <option value="Droguerías">Droguerías</option>
+    <option value="Veterinarias">Veterinarias</option>
+   </select>
+
+   <label class="formlabel">Tu Nombre (Propietario / Encargado)</label>
+   <input class="field" id="pOwner" required placeholder="Tu nombre completo">
+
+   <label class="formlabel">WhatsApp de contacto</label>
+   <input class="field" id="pPhone" required type="tel" placeholder="Tu número celular">
+
+   <label class="formlabel">Detalle de productos o menú y fotos/precios</label>
+   <textarea class="field" id="pDesc" rows="3" required placeholder="Describe brevemente tus productos principales y cómo nos harás llegar tu menú o fotos"></textarea>
+
+   <button class="submit" type="submit">📲 Enviar solicitud de afiliación</button>
+  </form>
+ </div>
+</div>
+
+<footer>
+ <div class="wrap foot">
+  <div><b>RODAO</b><br><span>Impulsando el comercio de El Doncello.</span></div>
+  <div>El Doncello, Caquetá<br><span>Domiciliaria: 3214196269</span></div>
+ </div>
+</footer>
+
+<div class="drawer" id="drawer" onclick="if(event.target===this)closeCart()">
+ <aside class="panel">
+  <div class="panelhead">
+   <h2>Tu Carrito RODAO</h2>
+   <button class="close" onclick="closeCart()">✕</button>
+  </div>
+  
+  <div id="cartitems" class="cartitems"></div>
+  
+  <div class="total-box">
+   <div class="total-row"><span>Subtotal</span><span id="subtotal">$0</span></div>
+   <div class="total-row"><span>Domicilio casco urbano</span><span id="feelabel">$3.000</span></div>
+   <div class="total-row grand"><span>Total estimado</span><span id="grandtotal">$0</span></div>
+  </div>
+
+  <form id="checkout" onsubmit="submitOrder(event)">
+   <label class="formlabel" for="customer">Tu nombre y apellido</label>
+   <input class="field" id="customer" required maxlength="80" placeholder="Ej: Maria Gomez">
+
+   <label class="formlabel" for="phone">Celular de contacto</label>
+   <input class="field" id="phone" required type="tel" maxlength="20" placeholder="Ej: 3210000000">
+
+   <label class="formlabel" for="address">Dirección exacta en El Doncello</label>
+   <input class="field" id="address" required maxlength="180" placeholder="Barrio, calle, número de casa">
+
+   <label class="formlabel" for="notes">Notas o instrucciones especiales</label>
+   <textarea class="field" id="notes" rows="2" maxlength="250" placeholder="Ej: Detalle de mandado, sin salsa, etc..."></textarea>
+
+   <button class="submit" type="submit">📲 Enviar pedido al WhatsApp</button>
+   <div class="hint">El pedido se enviará directo a tu WhatsApp de domicilios (<b>3214196269</b>).</div>
+  </form>
+ </aside>
+</div>
+
+<div id="toast" class="toast"></div>
+
+<script>
+const WHATSAPP_NUMBER = "573214196269"; 
+const DELIVERY_FEE = 3000; 
+
+const products = [
+ {id:1,name:"Pan de Bono caliente (Paquete)",category:"Panaderías",price:8000,emoji:"🥐",desc:"Fresco y crujiente de panadería local."},
+ {id:2,name:"Porción de Torta de Chocolate",category:"Panaderías",price:7000,emoji:"🍰",desc:"Suave, húmeda y dulce."},
+ {id:3,name:"Hamburguesa Artesanal con Papas",category:"Restaurantes",price:18000,emoji:"🍔",desc:"Carne jugosa, queso y vegetales frescos."},
+ {id:4,name:"Almuerzo Ejecutivo del Día",category:"Restaurantes",price:15000,emoji:"🍱",desc:"Sopa, plato fuerte y bebida."},
+ {id:5,name:"Corte de Cabello / Barbería",category:"Estética/Belleza",price:20000,emoji:"💇‍♂️",desc:"Servicio a domicilio o agendamiento local."},
+ {id:6,name:"Kit Cuidado Facial y Mascarilla",category:"Estética/Belleza",price:25000,emoji:"✨",desc:"Productos recomendados de estética."},
+ {id:7,name:"Analgésico / Kit de Primeros Auxilios",category:"Droguerías",price:12000,emoji:"🩹",desc:"Domicilio seguro de farmacia autorizado."},
+ {id:8,name:"Vitamina C / Suplemento",category:"Droguerías",price:15000,emoji:"💊",desc:"Cuidado diario para tu salud."},
+ {id:9,name:"Concentrado Perro / Gato (1 Kilo)",category:"Veterinarias",price:14000,emoji:"🐾",desc:"Alimento balanceado para tu mascota."},
+ {id:10,name:"Antipulgas y Accesorios",category:"Veterinarias",price:18000,emoji:"🐶",desc:"Cuidado y bienestar animal."},
+ {id:11,name:"Mandadito / Vuelta Express Personalizada",category:"Mandadito",price:4000,emoji:"🛵",desc:"Mandados, documentos, pagos o compras a tu medida."}
+];
+
+let selectedCategory="Todos";
+let cart={};
+
+const money = n => n.toLocaleString("es-CO",{style:"currency",currency:"COP",maximumFractionDigits:0});
+
+function renderCategories(){
+ const cats=["Todos","Panaderías","Restaurantes","Estética/Belleza","Droguerías","Veterinarias","Mandadito"];
+ document.getElementById("categories").innerHTML=cats.map(c=>`
+  <button class="cat ${selectedCategory===c?"active":""}" onclick="setCategory('${c}')">
+   ${c==="Todos"?"✨":c==="Panaderías"?"🥐":c==="Restaurantes"?"🍔":c==="Estética/Belleza"?"💇‍♀️":c==="Droguerías"?"🩹":c==="Veterinarias"?"🐾":"🛵"} ${c}
+  </button>
+`).join("");
+}
+
+function setCategory(c){
+ selectedCategory=c;
+ renderCategories();
+ renderProducts();
+}
+
+function renderProducts(){
+ const q=document.getElementById("search").value.trim().toLowerCase();
+ const filtered=products.filter(p=>(selectedCategory==="Todos"||p.category===selectedCategory)&&(`${p.name} ${p.category} ${p.desc}`.toLowerCase().includes(q)));
+ document.getElementById("productcount").textContent=`${filtered.length} opciones`;
+ document.getElementById("products").innerHTML=filtered.map(p=>`
+  <article class="card">
+   <div class="foodpic">${p.emoji}</div>
+   <div class="cardbody">
+    <h3>${p.name}</h3>
+    <div class="desc">${p.desc}</div>
+    <div class="pricebar">
+     <span class="price">${money(p.price)}</span>
+     <button class="add" onclick="addToCart(${p.id})">+ Agregar</button>
+    </div>
+   </div>
+  </article>
+ `).join("") || `<p style="grid-column:1/-1;text-align:center;color:var(--muted);padding:30px;">No encontramos resultados en esta búsqueda.</p>`;
+}
+
+function addToCart(id){
+ cart[id]=(cart[id]||0)+1;
+ updateCount();
+ toast("¡Agregado a tu pedido!");
+}
+
+function addMandaditoToCart(){
+ const mandaditoItem = products.find(p => p.category === "Mandadito");
+ if(mandaditoItem){
+  addToCart(mandaditoItem.id);
+  openCart();
+ }
+}
+
+function updateCount(){
+ const totalItems=Object.values(cart).reduce((a,b)=>a+b,0);
+ document.getElementById("cartcount").textContent=totalItems;
+}
+
+function openCart(){
+ document.getElementById("drawer").classList.add("open");
+ renderCart();
+}
+
+function closeCart(){
+ document.getElementById("drawer").classList.remove("open");
+}
+
+function changeQty(id,delta){
+ cart[id]=(cart[id]||0)+delta;
+ if(cart[id]<=0) delete cart[id];
+ updateCount();
+ renderCart();
+}
+
+function renderCart(){
+ const items=Object.entries(cart).map(([id,qty])=>({p:products.find(p=>p.id===Number(id)),qty})).filter(x=>x.p);
+ 
+ const container=document.getElementById("cartitems");
+ if(!items.length){
+  container.innerHTML=`<div class="empty">Tu carrito está vacío. <br>Elige un producto o solicita un mandadito.</div>`;
+ } else {
+  container.innerHTML=items.map(({p,qty})=>`
+   <div class="cartrow">
+    <div style="font-size:24px">${p.emoji}</div>
+    <div class="itemname">
+     <b>${p.name}</b><br>
+     <small style="color:var(--muted)">${money(p.price)} c/u</small>
+    </div>
+    <div class="qty">
+     <button type="button" onclick="changeQty(${p.id},-1)">−</button>
+     <b>${qty}</b>
+     <button type="button" onclick="changeQty(${p.id},1)">+</button>
+    </div>
+   </div>
+  `).join("");
+ }
+
+ const subtotal=items.reduce((s,{p,qty})=>s+p.price*qty,0);
+ const grand=subtotal+(items.length>0?DELIVERY_FEE:0);
+
+ document.getElementById("subtotal").textContent=money(subtotal);
+ document.getElementById("feelabel").textContent=money(items.length>0?DELIVERY_FEE:0);
+ document.getElementById("grandtotal").textContent=money(grand);
+}
+
+function submitOrder(e){
+ e.preventDefault();
+ const items=Object.entries(cart).map(([id,qty])=>({p:products.find(p=>p.id===Number(id)),qty})).filter(x=>x.p);
+ if(!items.length){toast("Agrega al menos un producto.");return;}
+
+ const name=document.getElementById("customer").value.trim();
+ const phone=document.getElementById("phone").value.trim();
+ const address=document.getElementById("address").value.trim();
+ const notes=document.getElementById("notes").value.trim();
+
+ const subtotal=items.reduce((s,{p,qty})=>s+p.price*qty,0);
+ const total=subtotal+DELIVERY_FEE;
+
+ const lines=items.map(({p,qty})=>`- ${qty} x ${p.name} (${money(p.price*qty)})`);
+ 
+ const msg=`¡Hola RODAO! 🛵 Quiero confirmar este pedido:\n\n${lines.join("\n")}\n\nSubtotal: ${money(subtotal)}\nDomicilio: ${money(DELIVERY_FEE)}\nTOTAL A PAGAR: ${money(total)}\n\nCliente: ${name}\nCelular: ${phone}\nDirección: ${address} (El Doncello)\nNotas/Mandado: ${notes||"Ninguna"}\n\n¡Quedo atento(a)!`;
+
+ window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`,"_blank","noopener");
+}
+
+function openPartnerModal(){ document.getElementById("partnerModal").classList.add("open"); }
+function closePartnerModal(){ document.getElementById("partnerModal").classList.remove("open"); }
+
+function submitPartnerForm(e){
+ e.preventDefault();
+ const name = document.getElementById("pName").value.trim();
+ const cat = document.getElementById("pCat").value;
+ const owner = document.getElementById("pOwner").value.trim();
+ const phone = document.getElementById("pPhone").value.trim();
+ const desc = document.getElementById("pDesc").value.trim();
+
+ const msg = `🤝 ¡Hola RODAO! Quiero afiliar mi negocio a la plataforma:\n\n*Negocio:* ${name}\n*Categoría:* ${cat}\n*Propietario:* ${owner}\n*Celular:* ${phone}\n*Detalle/Menú/Fotos:* ${desc}\n\n¡Espero instrucciones para empezar a vender!`;
+
+ window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`,"_blank","noopener");
+ closePartnerModal();
+ toast("¡Solicitud generada con éxito!");
+}
+
+function toast(msg){
+ const el=document.getElementById("toast");
+ el.textContent=msg;
+ el.style.display="block";
+ setTimeout(()=>el.style.display="none",2500);
+}
+
+renderCategories();
+renderProducts();
+updateCount();
+</script>
+
+</body>
+</html>
